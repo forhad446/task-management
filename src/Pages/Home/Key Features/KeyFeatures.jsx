@@ -6,8 +6,8 @@ import { GrSecure } from "react-icons/gr";
 
 const KeyFeatures = () => {
     return (
-        <div className="max-w-7xl mx-auto">
-            <h1 className="text-4xl md:text-5xl text-center font-bold py-10">Key Features</h1>
+        <div className="max-w-7xl mx-auto py-10">
+            <h1 className="text-4xl md:text-5xl text-center font-bold pb-10">Key Features</h1>
             <p className="px-5 text-center">
                 Streamline teamwork with our Task Management Platform. Collaborate effortlessly in real time, assign tasks, and customize lists. Stay organized with deadline tracking, file sharing, and notifications. Seamlessly integrate with tools, access tasks on-the-go, and analyze progress. Enjoy a user-friendly interface with robust security. Achieve goals efficiently and effectively across diverse industries.
             </p>
