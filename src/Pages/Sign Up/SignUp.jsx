@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../Hooks/useAuth";
+import { useState } from "react";
 
-const Login = () => {
+const SignUp = () => {
 
-    const { signIn, user } = useAuth();
+    const { createUser } = useAuth();
     const [error, setError] = useState(null);
 
     const handleSubmit = e => {
@@ -20,9 +20,9 @@ const Login = () => {
             setError('please give valid password');
             return console.log(error);
         } else {
-            signIn(email, password)
+            createUser(email, password)
                 .then(() => {
-                    console.log(user);
+                    console.log("done");
                     form.reset();
                 })
                 .catch((error) => console.log(error.message))
@@ -36,10 +36,10 @@ const Login = () => {
                     <div className="flex h-full flex-col justify-center gap-4 p-6">
                         <div className="left-0 right-0 inline-block border-gray-200 px-2 py-2.5 sm:px-4">
                             <form onSubmit={handleSubmit} className="flex flex-col gap-4 pb-4" data-hs-cf-bound="true">
-                                <h1 className="mb-4 text-2xl font-bold">Login</h1>
+                                <h1 className="mb-4 text-2xl font-bold">Sign Up</h1>
                                 <div>
                                     <div className="mb-2">
-                                        <label className="text-sm font-medium text-gray-900 "
+                                        <label className="text-sm font-medium text-gray-900"
                                             name="email">Email:</label>
                                     </div>
                                     <div className="flex w-full rounded-lg pt-1">
@@ -82,9 +82,8 @@ const Login = () => {
                                 </div>
                             </form>
                             <div className="min-w-[270px]">
-                                <div className="mt-4 text-center">New user?
-                                    <a className="text-blue-500 underline hover:text-blue-600" href="/signup">Create account
-                                        here</a>
+                                <div className="mt-4 text-center">Already have an account?
+                                    <a className="text-blue-500 underline hover:text-blue-600" href="/login">Login here</a>
                                 </div>
                             </div>
                         </div>
@@ -95,4 +94,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default SignUp;
