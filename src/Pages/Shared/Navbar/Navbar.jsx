@@ -2,9 +2,12 @@ import { useState } from 'react';
 import logo from './../../../assets/img/logo dark.png'
 import { IoSearch, IoMenu, IoClose } from "react-icons/io5";
 import { NavLink } from 'react-router-dom';
+import useAuth from '../../../Hooks/useAuth';
 
 const Navbar = () => {
     const [hidden, setHidden] = useState(false);
+    const { user, logOut } = useAuth();
+
     const navItems = <>
         <li>
             <NavLink
@@ -15,24 +18,52 @@ const Navbar = () => {
                             : "block py-2 px-3  rounded md:bg-transparent  text-black md:p-0 "
                 } >Home</NavLink>
         </li>
-        <li>
-            <NavLink
-                to="/login"
-                className={({ isActive, isPending }) =>
-                    isPending ? "pending"
-                        : isActive ? " block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 "
-                            : "block py-2 px-3 text-black rounded md:bg-transparent  md:p-0 "
-                } >Login</NavLink>
-        </li>
-        <li>
-            <NavLink
-                to="/signUp"
-                className={({ isActive, isPending }) =>
-                    isPending ? "pending"
-                        : isActive ? " block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 "
-                            : "block py-2 px-3 text-black rounded md:bg-transparent  md:p-0 "
-                } >Sign Up</NavLink>
-        </li>
+        {
+            user ?
+                <>
+                    <li>
+                        <NavLink
+                            to="/dashboard"
+                            className={({ isActive, isPending }) =>
+                                isPending ? "pending"
+                                    : isActive ? " block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 "
+                                        : "block py-2 px-3 text-black rounded md:bg-transparent  md:p-0 "
+                            } >Dashboard</NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            to="/"
+                            onClick={() => logOut()}
+                            className={({ isActive, isPending }) =>
+                                isPending ? "pending"
+                                    : isActive ? " block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 "
+                                        : "block py-2 px-3 text-black rounded md:bg-transparent  md:p-0 "
+                            } >Sign Out</NavLink>
+                    </li>
+                </> :
+                <>
+                    <li>
+                        <NavLink
+                            to="/login"
+                            className={({ isActive, isPending }) =>
+                                isPending ? "pending"
+                                    : isActive ? " block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 "
+                                        : "block py-2 px-3 text-black rounded md:bg-transparent  md:p-0 "
+                            } >Login</NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            to="/signUp"
+                            className={({ isActive, isPending }) =>
+                                isPending ? "pending"
+                                    : isActive ? " block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 "
+                                        : "block py-2 px-3 text-black rounded md:bg-transparent  md:p-0 "
+                            } >Sign Up</NavLink>
+                    </li>
+                </>
+        }
+
+
     </>
 
     const handleMenuItems = () => {

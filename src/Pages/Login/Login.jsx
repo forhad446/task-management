@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../Hooks/useAuth";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
 
@@ -22,7 +23,7 @@ const Login = () => {
         } else {
             signIn(email, password)
                 .then(() => {
-                    console.log(user);
+                    Navigate('/dashboard')
                     form.reset();
                 })
                 .catch((error) => console.log(error.message))
@@ -30,6 +31,9 @@ const Login = () => {
     }
     return (
         <div className="py-20">
+            {
+                user && <Navigate to="/dashboard" replace={true} />
+            }
             <div className="flex h-full items-center justify-center">
                 <div
                     className="rounded-lg border border-gray-200 bg-white shadow-md flex-col flex h-full items-center justify-center sm:px-4">

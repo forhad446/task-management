@@ -1,13 +1,13 @@
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebase/config";
 
 export const AuthContext = createContext(null)
 
 const AuthProvider = ({ children }) => {
 
-    const [user, setUser] = useState([])
-    const [loader, setLoader] = useState(true)
+    const [user, setUser] = useState(null)
+    const [loader, setLoader] = useState(false)
 
     // create new account
     const createUser = (email, password) => {
@@ -19,6 +19,13 @@ const AuthProvider = ({ children }) => {
         setLoader(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
+    // sign Out
+    const logOut = () => {
+        signOut(auth)
+            .then(() => {
+                setUser(null)
+            })
+    }
     // current User
     useEffect(() => {
         const currentUser = onAuthStateChanged(auth, (user) => {
@@ -26,19 +33,19 @@ const AuthProvider = ({ children }) => {
                 setLoader(false);
                 setUser(user);
             } else {
-                setLoader(true);
                 // User is signed out
                 // ...
             }
         });
         return currentUser;
-    }, [user])
+    }, [user, loader])
 
     const authInfo = {
         createUser,
         signIn,
         user,
-        loader
+        loader,
+        logOut
     };
 
     return (
